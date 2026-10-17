@@ -4,6 +4,7 @@
 SOURCE_DIR = src
 SOURCES = $(wildcard $(SOURCE_DIR)/*.c)
 HEADERS = $(wildcard $(SOURCE_DIR)/*.h)
+USE_WERROR = 1
 
 ifeq ($(OS),Windows_NT)
     EXE_EXT = .exe
@@ -24,7 +25,10 @@ RM = rm -f
 
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c11
-CFLAGS_STRICT = -Wshadow -Wformat=2 -Wundef -Werror
+CFLAGS_STRICT = -Wshadow -Wformat=2 -Wundef
+ifeq ($(USE_WERROR),1)
+	CFLAGS_STRICT += -Werror
+endif
 CFLAGS_RELEASE = -O2
 CFLAGS_DEBUG = $(CFLAGS_STRICT) -O0 -ggdb $(SAN_FLAGS)
 
