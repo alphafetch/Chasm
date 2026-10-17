@@ -11,6 +11,7 @@ define ^int main() {
     get
     io
     NEWLINE
+    NEWLINE
     define
     ^
     int
@@ -32,4 +33,6 @@ define ^int main() {
     ;
     NEWLINE
     }
+    NEWLINE
+    NEWLINE
 */

@@ -1,5 +1,3 @@
-// Compares 0x1f to 1f
-
 define ^int main() {
     float32 a = 1f;
     int hex = 0x1f;
@@ -28,4 +26,6 @@ define ^int main() {
     ;
     NEWLINE
     }
+    NEWLINE
+    NEWLINE
 */

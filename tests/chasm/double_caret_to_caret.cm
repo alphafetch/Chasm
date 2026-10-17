@@ -1,5 +1,3 @@
-// Compares ^^ to ^
-
 ^^get math
 ^^define MAX as 100
 
@@ -22,6 +20,7 @@ define ^int main() {
     as
     100
     NEWLINE
+    NEWLINE
     define
     ^
     int
@@ -42,9 +41,12 @@ define ^int main() {
     2
     ;
     NEWLINE
+    NEWLINE
     return
     0
     ;
     NEWLINE
     }
+    NEWLINE
+    NEWLINE
 */
