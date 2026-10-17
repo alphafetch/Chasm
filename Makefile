@@ -10,6 +10,7 @@ all: compile_headers
 compile_headers: compile-lexer_h
 
 compile-lexer_h: $(SOURCE_DIR)/lexer.h
+	@echo ""
 	@echo "--------------------------------"
 	@echo "Checking syntax for: lexer.h"
 	@echo "--------------------------------"
