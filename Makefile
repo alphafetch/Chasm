@@ -1,5 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c11
+CFLAGS_RELEASE = -O2
+CFLAGS_DEBUG = -Wshadow -Wformat=2 -Wundef -Werror
 
 SOURCE_DIR = src
 
@@ -14,7 +16,7 @@ compile-lexer_h: $(SOURCE_DIR)/lexer.h
 	@echo "--------------------------------"
 	@echo "Checking syntax for: lexer.h"
 	@echo "--------------------------------"
-	$(CC) $(CFLAGS) $<
+	$(CC) $(CFLAGS) $(CFLAGS_DEBUG) $<
 	@echo "Compilation completed"
 	@echo ""
 
