@@ -1,0 +1,31 @@
+^^get io
+
+define ^int main() {
+    io.println("Hello, Chasm!");
+    return 0;
+}
+
+/*
+    Expected output:
+    ^^
+    get
+    io
+    define
+    ^
+    int
+    main
+    (
+    )
+    {
+    io
+    .
+    println
+    (
+    "Hello, Chasm!"
+    )
+    ;
+    return
+    0
+    ;
+    }
+*/

@@ -1,0 +1,28 @@
+// Test that 0o works
+
+define ^int main() {
+    int octTest = 010;
+    int octTestCorrect = 0o010;
+}
+
+/*
+    Expected output:
+    define
+    ^
+    int
+    main
+    (
+    )
+    {
+    int
+    octTest
+    =
+    010
+    ;
+    int
+    octTestCorrect
+    =
+    0o010
+    ;
+    }
+*/

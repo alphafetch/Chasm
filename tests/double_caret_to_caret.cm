@@ -1,0 +1,43 @@
+// Compares ^^ to ^
+
+^^get math
+^^define MAX as 100
+
+define ^int main() {
+    var a = 1;
+    var b = 2;
+
+    return 0;
+}
+
+/*
+    Expected output:
+    ^^
+    get
+    math
+    ^^
+    define
+    MAX
+    as
+    100
+    ^
+    int
+    main
+    (
+    )
+    {
+    var
+    a
+    =
+    1
+    ;
+    var
+    b
+    =
+    2
+    ;
+    return
+    0
+    ;
+    }
+*/
