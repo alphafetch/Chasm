@@ -46,3 +46,45 @@ Lexer createLexer(const char* src) {
     Lexer l = { .c = src, .col = 1, .row = 1 };
     return l;
 }
+
+// Get and return the next token currently in the lexer's source
+Token nextToken(Lexer* lexer) {
+    const char* start;
+    size_t col;
+    size_t row;
+
+    // Skip whitespace before tokenizing
+    while (*(lexer->c) == ' ' || *(lexer->c) == '\r' || *(lexer->c) == '\t') {
+        advance(lexer);
+    }
+
+    start = lexer->c;
+    col = lexer->col;
+    row = lexer->row;
+
+    // Preinitialized invalid token
+    Token t = { 
+        .kind = INVALID, 
+        .typeValue.n = NULL,
+        .text = start, 
+        .length = 1, 
+        .col = col, 
+        .row = row 
+    };
+
+    // End of file, return base Token with NON_SOURCE kind
+    if (*start == '\0') {
+        t.kind = NON_SOURCE;
+        t.length = 0;
+    // This is a newline, return a NEWLINE token
+    } else if (*start == '\n') {
+        t.kind = NEWLINE;
+        t.length = 1;
+        advance(lexer);
+    // Otherwise, just advance then return the base invalid token
+    } else {
+        advance(lexer);
+    }
+    
+    return t;
+}
