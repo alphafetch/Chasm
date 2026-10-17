@@ -14,15 +14,18 @@ define ^int main() {
     (
     )
     {
+    NEWLINE
     int
     octTest
     =
     010
     ;
+    NEWLINE
     int
     octTestCorrect
     =
     0o010
     ;
+    NEWLINE
     }
 */

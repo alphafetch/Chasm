@@ -14,15 +14,18 @@ define ^int main() {
     (
     )
     {
+    NEWLINE
     float32
     a
     =
     1f
     ;
+    NEWLINE
     int
     hex
     =
     0x1f
     ;
+    NEWLINE
     }
 */

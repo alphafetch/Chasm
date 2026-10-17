@@ -15,29 +15,36 @@ define ^int main() {
     ^^
     get
     math
+    NEWLINE
     ^^
     define
     MAX
     as
     100
+    NEWLINE
+    define
     ^
     int
     main
     (
     )
     {
+    NEWLINE
     var
     a
     =
     1
     ;
+    NEWLINE
     var
     b
     =
     2
     ;
+    NEWLINE
     return
     0
     ;
+    NEWLINE
     }
 */

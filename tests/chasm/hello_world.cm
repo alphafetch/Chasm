@@ -10,6 +10,7 @@ define ^int main() {
     ^^
     get
     io
+    NEWLINE
     define
     ^
     int
@@ -17,6 +18,7 @@ define ^int main() {
     (
     )
     {
+    NEWLINE
     io
     .
     println
@@ -24,8 +26,10 @@ define ^int main() {
     "Hello, Chasm!"
     )
     ;
+    NEWLINE
     return
     0
     ;
+    NEWLINE
     }
 */
