@@ -185,7 +185,7 @@ typedef struct {
         void* n;
     } typeValue;
 
-    const char* text;       // Pointer to the text
+    const char* text;       // Pointer to the text - not terminated with \0, use length below
     size_t length;          // Use length to avoid allocating memory (and therefore freeing) for the text
 
     int row;                // Row and column for errors
