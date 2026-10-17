@@ -188,8 +188,8 @@ typedef struct {
     const char* text;       // Pointer to the text - not terminated with \0, use length below
     size_t length;          // Use length to avoid allocating memory (and therefore freeing) for the text
 
-    int row;                // Row and column for errors
-    int col;
+    size_t row;             // Row and column for errors
+    size_t col;
 } Token;
 
 #endif
