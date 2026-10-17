@@ -19,7 +19,7 @@ static char lookahead(Lexer* lexer, size_t distance) {
     return '\0';
 }
 
-// Advances the lexer's index by one; \r is considered an ordianry column and only \n ends a line
+// Advances the lexer's index by one; \r is considered an ordinary column and only \n ends a line
 // nextToken skips \r as whitespace
 static void advance(Lexer* lexer) {
     // Consumes the character at c; with a newline starting a new row, 
