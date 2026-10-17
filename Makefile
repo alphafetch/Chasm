@@ -62,9 +62,7 @@ release: $(SOURCES) $(HEADERS)
 	@echo ""
 	$(CC) $(CFLAGS) $(CFLAGS_RELEASE) $(SOURCES) -o $(EXECUTABLE_NAME)
 
-compile_headers: compile-lexer_h 
-	@echo "Syntax check completed"
-	@echo ""
+compile_headers: compile-lexer_h
 
 compile-lexer_h: $(SOURCE_DIR)/lexer.h
 	@echo ""
