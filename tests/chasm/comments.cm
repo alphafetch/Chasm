@@ -1,0 +1,14 @@
+/**/
+/*/ x */ // the / shouldn't close the comment
+a/**/b // should be a then b
+/*
+ Block
+ Comment
+*/ tok
+*/ // Stray
+a / b
+a /= b
+a //b
+/* unclosed
+// CRLF line
+// EOF line
