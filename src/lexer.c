@@ -89,6 +89,22 @@ Token nextToken(Lexer* lexer) {
         advance(lexer);
     } 
     
+    /**
+     * Character table (single character only)
+     * Character -> Token Value
+     * (         -> PC_LPAREN
+     * )         -> PC_RPAREN
+     * [         -> PC_LSQUARE
+     * ]         -> PC_RSQUARE
+     * {         -> PC_LBRACE
+     * }         -> PC_RBRACE
+     * ,         -> PC_COMMA
+     * ;         -> PC_SEMICOLON
+     * .         -> PC_DOT
+     * :         -> PC_COLON
+     * ~         -> PC_BITNOT
+     */
+
     int isPunctuation = 0;
     // Switch the character to see if it is any characters that do not require lookahead
     // All are punctuation, but not all punctuation can be found from the first character, so only these are switched for now
