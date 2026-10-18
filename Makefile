@@ -4,7 +4,7 @@
 SOURCE_DIR = src
 SOURCES = $(wildcard $(SOURCE_DIR)/*.c)
 HEADERS = $(wildcard $(SOURCE_DIR)/*.h)
-USE_WERROR = 0
+USE_WERROR = 1
 
 ifeq ($(OS),Windows_NT)
     EXE_EXT = .exe
