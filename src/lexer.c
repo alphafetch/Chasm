@@ -48,6 +48,7 @@ Lexer createLexer(const char* src) {
 }
 
 // Get and return the next token currently in the lexer's source
+// This function should be O(n) time due to consuming each character once
 Token nextToken(Lexer* lexer) {
     const char* start;
     size_t col;
