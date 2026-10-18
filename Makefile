@@ -40,7 +40,8 @@ EXECUTABLE_NAME = chasm$(EXE_EXT)
 check: compile_headers
 	@echo ""
 	@echo "--------------------------------"
-	@echo "Checking syntax for: $(SOURCES)"
+	@echo "Checking syntax for:"
+	@echo "$(SOURCES)"
 	@echo "--------------------------------"
 	$(CC) $(CFLAGS) $(CFLAGS_STRICT) -fsyntax-only $(SOURCES)
 	@echo "Syntax check completed"
