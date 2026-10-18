@@ -1,0 +1,18 @@
+^^get io
+
+define ^int main() {
+    io.println("Hello, world! %i", 5);
+
+    int a = 0;
+    a++;
+    
+    if (a == 1) {
+        // string[] is and alias for char[]
+        string[] b = "Hello, world?";
+    }
+
+    int b = a == 2 => 1 : 4;
+    a = ~a;
+
+    return 0;
+}
