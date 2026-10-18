@@ -65,12 +65,13 @@ release: $(SOURCES) $(HEADERS)
 
 compile_headers: compile-lexer_h
 
-compile-lexer_h: $(SOURCE_DIR)/lexer.h
+compile-lexer_h: $(HEADERS)
 	@echo ""
 	@echo "--------------------------------"
-	@echo "Checking syntax for: lexer.h"
+	@echo "Checking syntax for:" 
+	@echo "$(HEADERS)"
 	@echo "--------------------------------"
-	$(CC) $(CFLAGS) $(CFLAGS_STRICT) -fsyntax-only $<
+	$(CC) $(CFLAGS) $(CFLAGS_STRICT) -fsyntax-only $(HEADERS)
 	@echo ""
 
 clean: clean-gch clean-exe
