@@ -16,3 +16,15 @@ define ^int main() {
 
     return 0;
 }
+
+/*
+Example
+multi
+line
+comment
+    tab
+  spaces
+
+Blank line ^
+<!-d'[]
+*/
