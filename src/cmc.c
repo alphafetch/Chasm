@@ -1,3 +1,8 @@
+/**
+ * @file cmc.c
+ * @brief Main compiler for Chasm
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 

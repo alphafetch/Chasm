@@ -1,3 +1,8 @@
+/**
+ * @file lexer.h
+ * @brief Lexer header file defining enums and structs for the lexer
+ */
+
 #ifndef CHASM_LEXER_H
 #define CHASM_LEXER_H
 

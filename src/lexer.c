@@ -1,3 +1,8 @@
+/**
+ * @file lexer.c
+ * @brief Lexer functions to lex a given file into Tokens
+ */
+
 #include "lexer.h"
 
 #include <stdio.h>
