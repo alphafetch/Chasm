@@ -122,9 +122,191 @@ Token nextToken(Lexer* lexer) {
         case '~': t.typeValue.pc = PC_BITNOT;   isPunctuation = 1;   break;
     }
 
-    // Small if to check if it is punctuation, and add the t.kind assignement to it
-    if (isPunctuation) {
+    /**
+     * Character table:
+     * First ->  Characters following it  -> Single character version
+     * +     ->  + (++), = (+=)           -> +
+     * -     ->  - (--), = (-=)           -> -
+     * *     ->  = (*=)                   -> *
+     * /     ->  = (/=), / (//), * (/ *)  -> /
+     * %     ->  = (%=)                   -> %
+     * &     ->  & (&&), = (&=)           -> &
+     * |     ->  | (||), = (|=)           -> |
+     * ^     ->  ^ (^^), = (^=)           -> ^
+     * =     ->  = (==), > (=>)           -> =
+     * !     ->  = (!=)                   -> !
+     * <     ->  = (<=), < (<<), <= (<<=) -> <
+     * >     ->  = (>=), > (>>), >= (>>=) -> >
+     */
+
+    int isTwoCharPunctuation = 0;
+    int isThreeCharPunctuation = 0;
+
+    // Evaluate the above table
+    char next = lookahead(lexer, 1);
+    char tail = lookahead(lexer, 2);
+    switch(*start) {
+        case '+':
+            if (next == '+') {
+                isTwoCharPunctuation = 1;
+                t.typeValue.pc = PC_INCREMENT;
+            } else if (next == '=') {
+                isTwoCharPunctuation = 1;
+                t.typeValue.pc = PC_PLUSASSIGN;
+            } else {
+                isPunctuation = 1;
+                t.typeValue.pc = PC_PLUS;
+            }
+            break;
+        case '-':
+            if (next == '-') {
+                isTwoCharPunctuation = 1;
+                t.typeValue.pc = PC_DECREMENT;
+            } else if (next == '=') {
+                isTwoCharPunctuation = 1;
+                t.typeValue.pc = PC_MINUSASSIGN;
+            } else {
+                isPunctuation = 1;
+                t.typeValue.pc = PC_MINUS;
+            }
+            break;
+        case '*':
+            if (next == '=') {
+                isTwoCharPunctuation = 1;
+                t.typeValue.pc = PC_TIMESASSIGN;
+            } else {
+                isPunctuation = 1;
+                t.typeValue.pc = PC_TIMES;
+            }
+            break;
+        case '/':
+            if (next == '=') {
+                isTwoCharPunctuation = 1;
+                t.typeValue.pc = PC_DIVIDEASSIGN;
+            } else {
+                isPunctuation = 1;
+                t.typeValue.pc = PC_DIVIDE;
+            }
+            break;
+        case '%':
+            if (next == '=') {
+                isTwoCharPunctuation = 1;
+                t.typeValue.pc = PC_MODASSIGN;
+            } else {
+                isPunctuation = 1;
+                t.typeValue.pc = PC_MOD;
+            }
+            break;
+        case '&':
+            if (next == '&') {
+                isTwoCharPunctuation = 1;
+                t.typeValue.pc = PC_AND;
+            } else if (next == '=') {
+                isTwoCharPunctuation = 1;
+                t.typeValue.pc = PC_BITANDASSIGN;
+            } else {
+                isPunctuation = 1;
+                t.typeValue.pc = PC_BITAND;
+            }
+            break;
+        case '|':
+            if (next == '|') {
+                isTwoCharPunctuation = 1;
+                t.typeValue.pc = PC_OR;
+            } else if (next == '=') {
+                isTwoCharPunctuation = 1;
+                t.typeValue.pc = PC_BITORASSIGN;
+            } else {
+                isPunctuation = 1;
+                t.typeValue.pc = PC_BITOR;
+            }
+            break;
+        case '^':
+            if (next == '^') {
+                isTwoCharPunctuation = 1;
+                t.typeValue.pc = PC_DIRECTIVE;
+            } else if (next == '=') {
+                isTwoCharPunctuation = 1;
+                t.typeValue.pc = PC_BITXORASSIGN;
+            } else {
+                isPunctuation = 1;
+                t.typeValue.pc = PC_BITXOR;
+            }
+            break;
+        case '=':
+            if (next == '=') {
+                isTwoCharPunctuation = 1;
+                t.typeValue.pc = PC_EQUAL;
+            } else if (next == '>') {
+                isTwoCharPunctuation = 1;
+                t.typeValue.pc = PC_TERNARY;
+            } else {
+                isPunctuation = 1;
+                t.typeValue.pc = PC_ASSIGN;
+            }
+            break;
+        case '!':
+            if (next == '=') {
+                isTwoCharPunctuation = 1;
+                t.typeValue.pc = PC_NEQUAL;
+            } else {
+                isPunctuation = 1;
+                t.typeValue.pc = PC_NOT;
+            }
+            break;
+        case '<':
+            if (next == '<') {
+                if (tail == '=') {
+                    isThreeCharPunctuation = 1;
+                    t.typeValue.pc = PC_LEFTASSIGN;
+                } else {
+                    isTwoCharPunctuation = 1;
+                    t.typeValue.pc = PC_SHIFTLEFT;
+                }
+            } else if (next == '=') {
+                isTwoCharPunctuation = 1;
+                t.typeValue.pc = PC_LTEQUAL;
+            } else {
+                isPunctuation = 1;
+                t.typeValue.pc = PC_LT;
+            }
+            break;
+        case '>':
+            if (next == '>') {
+                if (tail == '=') {
+                    isThreeCharPunctuation = 1;
+                    t.typeValue.pc = PC_RIGHTASSIGN;
+                } else {
+                    isTwoCharPunctuation = 1;
+                    t.typeValue.pc = PC_SHIFTRIGHT;
+                }
+            } else if (next == '=') {
+                isTwoCharPunctuation = 1;
+                t.typeValue.pc = PC_GTEQUAL;
+            } else {
+                isPunctuation = 1;
+                t.typeValue.pc = PC_GT;
+            }
+            break;
+    }
+
+    // Check what type of punctuation it is, if it is a punctuation token, and apply necessary changes
+    if (isThreeCharPunctuation) {
         t.kind = PUNCTUATION;
+        t.length = 3;
+        // Advance the lexer thrice for three-char tokens
+        advance(lexer);
+        advance(lexer);
+        advance(lexer);
+    } else if (isTwoCharPunctuation) {
+        t.kind = PUNCTUATION;
+        t.length = 2;
+        // Advance the lexer twice for two-char tokens
+        advance(lexer);
+        advance(lexer);
+    } else if (isPunctuation) {
+        t.kind = PUNCTUATION;
+        t.length = 1;
         advance(lexer);
     }
 
