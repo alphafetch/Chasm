@@ -48,7 +48,7 @@ Lexer createLexer(const char* src) {
 }
 
 // Get and return the next token currently in the lexer's source
-// This function should be O(n) time due to consuming each character once
+// This function should be O(n) time per file due to consuming each character once
 Token nextToken(Lexer* lexer) {
     const char* start;
     size_t col;
@@ -82,10 +82,32 @@ Token nextToken(Lexer* lexer) {
         t.kind = NEWLINE;
         t.length = 1;
         advance(lexer);
-    // Otherwise, just advance then return the base invalid token
-    } else {
+    } 
+    
+    int isPunctuation = 0;
+    // Switch the character to see if it is any characters that do not require lookahead
+    // All are punctuation, but not all punctuation can be found from the first character, so only these are switched for now
+    switch (*start) {
+        case '(': t.typeValue.pc = PC_LPAREN;   isPunctuation = 1;   break;
+        case ')': t.typeValue.pc = PC_RPAREN;   isPunctuation = 1;   break;
+        case '[': t.typeValue.pc = PC_LSQUARE;  isPunctuation = 1;   break;
+        case ']': t.typeValue.pc = PC_RSQUARE;  isPunctuation = 1;   break;
+        case '{': t.typeValue.pc = PC_LBRACE;   isPunctuation = 1;   break;
+        case '}': t.typeValue.pc = PC_RBRACE;   isPunctuation = 1;   break;
+        case ',': t.typeValue.pc = PC_COMMA;    isPunctuation = 1;   break;
+        case ';': t.typeValue.pc = PC_SEMICOLON;isPunctuation = 1;   break;
+        case '.': t.typeValue.pc = PC_DOT;      isPunctuation = 1;   break;
+        case ':': t.typeValue.pc = PC_COLON;    isPunctuation = 1;   break;
+        case '~': t.typeValue.pc = PC_BITNOT;   isPunctuation = 1;   break;
+    }
+
+    // Small if to check if it is punctuation, and add the t.kind assignement to it
+    if (isPunctuation) {
+        t.kind = PUNCTUATION;
         advance(lexer);
     }
-    
+
+    // Invalid token - advance, otherwise just return
+    if (t.kind == INVALID) advance(lexer);
     return t;
 }
