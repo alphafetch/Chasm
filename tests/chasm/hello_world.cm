@@ -7,32 +7,32 @@ define ^int main() {
 
 /*
     Expected output:
-    ^^
-    get
-    io
-    NEWLINE
-    NEWLINE
-    define
-    ^
-    int
-    main
-    (
-    )
-    {
-    NEWLINE
-    io
-    .
-    println
-    (
-    "Hello, Chasm!"
-    )
-    ;
-    NEWLINE
-    return
-    0
-    ;
-    NEWLINE
-    }
-    NEWLINE
-    NEWLINE
+    ^^ Punctuation
+    get Keyword
+    io Identifier
+    NEWLINE Newline
+    NEWLINE Newline
+    define Keyword
+    ^ Punctuation
+    int Keyword
+    main Identifier
+    ( Punctuation
+    ) Punctuation
+    { Punctuation
+    NEWLINE Newline
+    io Identifier
+    . Punctuation
+    println Identifier
+    ( Punctuation
+    "Hello, Chasm!" Literal
+    ) Punctuation
+    ; Punctuation
+    NEWLINE Newline
+    return Keyword
+    0 Literal
+    ; Punctuation
+    NEWLINE Newline
+    } Punctuation
+    NEWLINE Newline
+    NEWLINE Newline
 */

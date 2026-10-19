@@ -5,27 +5,27 @@ define ^int main() {
 
 /*
     Expected output:
-    define
-    ^
-    int
-    main
-    (
-    )
-    {
-    NEWLINE
-    float32
-    a
-    =
-    1f
-    ;
-    NEWLINE
-    int
-    hex
-    =
-    0x1f
-    ;
-    NEWLINE
-    }
-    NEWLINE
-    NEWLINE
+    define Keyword
+    ^ Punctuation
+    int Keyword
+    main Identifier
+    ( Punctuation
+    ) Punctuation
+    { Punctuation
+    NEWLINE Newline
+    float32 Keyword
+    a Identifier
+    = Punctuation
+    1f Literal
+    ; Punctuation
+    NEWLINE Newline
+    int Keyword
+    hex Identifier
+    = Punctuation
+    0x1f Literal
+    ; Punctuation
+    NEWLINE Newline
+    } Punctuation
+    NEWLINE Newline
+    NEWLINE Newline
 */

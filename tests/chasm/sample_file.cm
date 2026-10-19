@@ -7,7 +7,7 @@ define ^int main() {
     a++;
     
     if (a == 1) {
-        // string[] is and alias for char[]
+        // string[] is an alias for char[]
         string[] b = "Hello, world?";
     }
 
@@ -18,13 +18,83 @@ define ^int main() {
 }
 
 /*
-Example
-multi
-line
-comment
-    tab
-  spaces
-
-Blank line ^
-<!-d'[]
+    Expected output:
+    ^^ Punctuation
+    get Keyword
+    io Identifier
+    NEWLINE Newline
+    NEWLINE Newline
+    define Keyword
+    ^ Punctuation
+    int Keyword
+    main Identifier
+    ( Punctuation
+    ) Punctuation
+    { Punctuation
+    NEWLINE Newline
+    io Identifier
+    . Punctuation
+    println Identifier
+    ( Punctuation
+    "Hello, world! %i" Literal
+    , Punctuation
+    5 Literal
+    ) Punctuation
+    ; Punctuation
+    NEWLINE Newline
+    NEWLINE Newline
+    int Keyword
+    a Identifier
+    = Punctuation
+    0 Literal
+    ; Punctuation
+    a Identifier
+    ++ Punctuation
+    ; Punctuation
+    NEWLINE Newline
+    NEWLINE Newline
+    if Keyword
+    ( Punctuation
+    a Identifier
+    == Punctuation
+    1 Literal
+    ) Punctuation
+    { Punctuation
+    NEWLINE Newline
+    NEWLINE Newline
+    string Keyword
+    [ Punctuation
+    ] Punctuation
+    b Identifier
+    = Punctuation
+    "Hello, world?" Literal
+    ; Punctuation
+    NEWLINE Newline
+    } Punctuation
+    NEWLINE Newline
+    NEWLINE Newline
+    int Keyword
+    b Identifier
+    = Punctuation
+    a Identifier
+    == Punctuation
+    2 Literal
+    => Punctuation
+    1 Literal
+    : Punctuation
+    4 Literal
+    ; Punctuation
+    NEWLINE Newline
+    a Identifier
+    = Punctuation
+    ~ Punctuation
+    a Identifier
+    ; Punctuation
+    NEWLINE Newline
+    NEWLINE Newline
+    return Keyword
+    0 Literal
+    ; Punctuation
+    NEWLINE Newline
+    } Punctuation
 */

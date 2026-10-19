@@ -1,1 +1,4 @@
 /* unclosed
+
+// Expected output:
+// Error.0000

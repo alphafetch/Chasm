@@ -11,3 +11,27 @@ a /= b
 a //b
 // CRLF line
 // EOF line
+
+/*
+    Expected output:
+    NEWLINE Newline
+    NEWLINE Newline
+    a Identifier
+    b Identifier
+    NEWLINE Newline
+    tok Identifier
+    NEWLINE Newline
+    NEWLINE Newline
+    a Identifier
+    / Operator
+    b Identifier
+    NEWLINE Newline
+    a Identifier
+    /= Operator
+    b Identifier
+    NEWLINE Newline
+    a Identifier
+    NEWLINE Newline
+    NEWLINE Newline
+    EOF Non-Source
+*/

@@ -5,27 +5,27 @@ define ^int main() {
 
 /*
     Expected output:
-    define
-    ^
-    int
-    main
-    (
-    )
-    {
-    NEWLINE
-    int
-    octTest
-    =
-    010
-    ;
-    NEWLINE
-    int
-    octTestCorrect
-    =
-    0o010
-    ;
-    NEWLINE
-    }
-    NEWLINE
-    NEWLINE
+    define Keyword
+    ^ Punctuation
+    int Keyword
+    main Identifier
+    ( Punctuation
+    ) Punctuation
+    { Punctuation
+    NEWLINE Newline
+    int Keyword
+    octTest Identifier
+    = Punctuation
+    010 Literal
+    ; Punctuation
+    NEWLINE Newline
+    int Keyword
+    octTestCorrect Identifier 
+    = Punctuation
+    0o010 Literal
+    ; Punctuation
+    NEWLINE Newline
+    } Punctuation
+    NEWLINE Newline
+    NEWLINE Newline
 */

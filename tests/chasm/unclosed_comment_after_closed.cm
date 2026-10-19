@@ -1,2 +1,6 @@
 x  // c
    /* y */  /* z
+
+// Expected output:
+// x Identifier
+// NEWLINE Newline

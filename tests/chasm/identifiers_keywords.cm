@@ -9,3 +9,72 @@ end as get
 ifx if x
 int8 in int
 eof
+
+/*
+    Expected output:
+    in Keyword
+    int Keyword
+    int8 Keyword
+    int88 Identifier
+    integer Identifier
+    int_ Identifier
+    _int Identifier
+    iffy Identifier
+    If Identifier
+    IF Identifier
+    NULL Keyword
+    null Identifier
+    Null Identifier
+    undefined Keyword
+    undef Identifier
+    true Keyword
+    t Keyword (if tfDef flag on)
+    f Keyword (as above)
+    false Keyword
+    NEWLINE Newline
+    _ Identifier
+    __ Identifier
+    a1 Identifier
+    a_b_c Identifier
+    x9y Identifier
+    a Identifier
+    . Punctuation
+    b Identifier
+    f Identifier
+    ( Punctuation
+    x Identifier
+    ) Punctuation
+    a Identifier
+    + Punctuation
+    b Identifier
+    x Identifier
+    y Identifier
+    x Identifier
+    NEWLINE Newline
+    before_crlf Identifier
+    NEWLINE Newline
+    looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Identifier
+    NEWLINE Newline
+    ^^ Punctuation
+    end Keyword
+    NEWLINE Newline
+    get Keyword
+    io Identifier
+    as Keyword
+    bare Keyword
+    NEWLINE Newline
+    end Keyword
+    as Keyword
+    get Keyword
+    NEWLINE Newline
+    ifx Identifier
+    if Keyword
+    x Identifier
+    NEWLINE Newline
+    int8 Keyword
+    in Keyword
+    int Keyword
+    NEWLINE Newline
+    eof Identifier
+    EOF Non-Source
+*/

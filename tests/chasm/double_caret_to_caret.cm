@@ -10,43 +10,43 @@ define ^int main() {
 
 /*
     Expected output:
-    ^^
-    get
-    math
-    NEWLINE
-    ^^
-    define
-    MAX
-    as
-    100
-    NEWLINE
-    NEWLINE
-    define
-    ^
-    int
-    main
-    (
-    )
-    {
-    NEWLINE
-    var
-    a
-    =
-    1
-    ;
-    NEWLINE
-    var
-    b
-    =
-    2
-    ;
-    NEWLINE
-    NEWLINE
-    return
-    0
-    ;
-    NEWLINE
-    }
-    NEWLINE
-    NEWLINE
+    ^^ Punctuation
+    get Keyword
+    math Identifier
+    NEWLINE Newline
+    ^^ Punctuation
+    define Keyword
+    MAX Identifier (macro)
+    as Keyword
+    100 Literal
+    NEWLINE Newline
+    NEWLINE Newline
+    define Keyword
+    ^ Punctuation
+    int Keyword
+    main Identifier
+    ( Punctuation
+    ) Punctuation
+    { Punctuation
+    NEWLINE Newline
+    var Keyword
+    a Identifier
+    = Punctuation
+    1 Literal
+    ; Punctuation
+    NEWLINE Newline
+    var Keyword
+    b Identifier
+    = Punctuation
+    2 Literal
+    ; Punctuation
+    NEWLINE Newline
+    NEWLINE Newline
+    return Keyword
+    0 Literal
+    ; Punctuation
+    NEWLINE Newline
+    } Punctuation
+    NEWLINE Newline
+    NEWLINE Newline
 */

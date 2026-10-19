@@ -6,20 +6,16 @@ define ^int main() {
 
 /*
     Expected output:
-    define
-    ^
-    int
-    main
-    (
-    )
-    {
-    NEWLINE
-    var
-    str
-    =
+    define Keyword
+    ^ Punctuation
+    int Keyword
+    main Identifier
+    ( Punctuation
+    ) Punctuation
+    { Punctuation
+    NEWLINE Newline
+    var Keyword
+    str Identifier
+    = Punctuation
     Error: unclosed string, reported at line 4, column 15
-
-    Note: this comment must not contain a double-quote character. A string runs
-    until the next unescaped double-quote, so a second one anywhere below the
-    start would close the string and the error would never happen.
 */
