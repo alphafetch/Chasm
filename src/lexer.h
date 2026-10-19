@@ -24,7 +24,7 @@ typedef enum {
                      // f, l, s, z, u - combinable, f not on hex - because it is a hex digit
     CHAR_LITERAL,    // 'a' and '\u{1F600}' as well as escapes:
                      //   Escape Codes: \n \t \r \0 \\ \' \" \xHH \u{H...}
-    STR_LITERAL,     // "..." which may span lines, raw r"..." where backslashes are literal
+    STR_LITERAL,     // "..." which may span lines
     PUNCTUATION,     // Brackets, arithmetic, incrementors, bitwise, comparisons, logical, ternary, assignment, prefix, hash prefixes (with ^^(hashForDoubleCaretDef))
                      //       Brackets: (, ), [, ], {, }, ,, ;, ., :
                      //     Arithmetic: +, -, *, /, %
