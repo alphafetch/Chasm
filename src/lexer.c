@@ -60,9 +60,43 @@ Token nextToken(Lexer* lexer) {
     size_t col;
     size_t row;
 
-    // Skip whitespace before tokenizing
-    while (*(lexer->c) == ' ' || *(lexer->c) == '\r' || *(lexer->c) == '\t') {
-        advance(lexer);
+    start = lexer->c;
+    col = lexer->col;
+    row = lexer->row;
+
+    // Skip comments and whitespace before tokenizing
+    // Loop doesn't stop until skipped tokens are passed, or the end of the file
+    while (*(lexer->c) != '\0') {
+        // Whitespace - skip
+        if (*(lexer->c) == ' ' || *(lexer->c) == '\r' || *(lexer->c) == '\t') {
+            advance(lexer);
+            
+            // Update row and column to match
+            col = lexer->col;
+            row = lexer->row;
+        // Line comment - skip until newline
+        } else if (*(lexer->c) == '/' && lookahead(lexer, 1) == '/') {
+            while (*(lexer->c) != '\n' && *(lexer->c) != '\0') {
+                advance(lexer);
+            }
+        // Block comment - skip until closed
+        } else if (*(lexer->c) == '/' && lookahead(lexer, 1) == '*') {
+            // Advance twice to get off of the opener's *
+            advance(lexer); advance(lexer);
+            while (!(*(lexer->c) == '*' && lookahead(lexer, 1) == '/') && *(lexer->c) != '\0') {
+                advance(lexer);
+            }
+
+            if (*(lexer->c) == '\0') {
+                handleExit(UNTERMINATED_BLOCK_COMMENT_ERROR, lexer->file, row, col, 0, EMPTY_STR);
+            }
+
+            // Advance twice to avoid being stuck on the closer's *
+            advance(lexer); advance(lexer);
+        // No skippable tokens left - break
+        } else {
+            break;
+        }
     }
 
     start = lexer->c;
