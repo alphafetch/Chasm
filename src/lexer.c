@@ -351,6 +351,7 @@ Token nextToken(Lexer* lexer) {
 }
 
 // Used for printing a Token's value
+// Finishes in O(1) time
 void printToken(Token* tok) {
     char* kindBuf[25];
 
