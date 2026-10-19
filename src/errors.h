@@ -1,0 +1,38 @@
+#ifndef CHASM_ERRORS_H
+#define CHASM_ERRORS_H
+
+#include <stdio.h>
+#include <errno.h>
+
+#define SUCCESS -1
+#define USAGEREQ -2
+
+#define UNTERMINATED_BLOCK_COMMENT_ERROR 0
+#define BAD_FILE_DESCRIPTOR_ERROR 1
+#define FILE_TOO_LONG_ERROR 2
+#define POSITIONING_FAILED_ERROR 3
+#define INVALID_FTELL_ARG_ERROR 4
+#define UNKNOWN_ERROR 5
+#define NULL_FILE_LEXER_ERROR 6
+#define FILE_NOT_FOUND_ERROR 7
+#define FILE_PERMISSIONS_DENIED_ERROR 8
+#define CALL_INTERRUPTED_ERROR 9
+#define MAX_OPEN_FILES_ERROR 10
+#define DIRECTORY_TOO_LONG_ERROR 11
+#define READ_ONLY_FILESYSTEM_ERROR 12
+#define IO_ERROR 13
+#define MEM_ERROR 14
+#define UNAVAIL_RESOURCE_ERROR 15
+
+#define S_E stderr
+#define S_O stdout
+#define ERRNO_RESET errno = 0
+#define SAVE_ERRNO int serrno = errno
+#define LOAD_ERRNO serrno
+#define NO_ROWCOL_GIVEN 0, 0
+#define EMPTY_STR ""
+#define EXIT_MEMORY_ERROR 2
+
+_Noreturn void handleExit(int errorNum, const char* file, int row, int col, int savedErrno, const char* extra);
+
+#endif

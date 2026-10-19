@@ -201,9 +201,12 @@ typedef struct {
     const char* c;      // A pointer to the current character
     size_t row;         // Row and column to pass to tokens
     size_t col;
+    const char* file;   // Filename for error handling
 } Lexer;
 
-Lexer createLexer(const char* src);
+Lexer createLexer(const char* src, const char* filename);
 Token nextToken(Lexer* lexer);
+
+void printToken(Token* tok);
 
 #endif

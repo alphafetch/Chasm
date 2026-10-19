@@ -7,6 +7,8 @@
 
 #include <stdio.h>
 
+#include "errors.h"
+
 // This function gets the character a set distance away from the current character
 // Returns a null terminator (\0) if there isn't anything that far ahead
 // Runs in O(distance); effectively O(1) because callers pass at most 2
@@ -42,13 +44,12 @@ static void advance(Lexer* lexer) {
 
 // Create a lexer based on the source file, returning a lexer initialized to the first character
 // Runs in O(1) time
-Lexer createLexer(const char* src) {
+Lexer createLexer(const char* src, const char* filename) {
     // NULL source is a caller bug, so exit
     if (src == NULL) {
-        fprintf(stderr, "Failed to compile source. File is NULL.\n");
-        exit(EXIT_FAILURE);
+        handleExit(NULL_FILE_LEXER_ERROR, EMPTY_STR, NO_ROWCOL_GIVEN, 0, EMPTY_STR);
     }
-    Lexer l = { .c = src, .col = 1, .row = 1 };
+    Lexer l = { .c = src, .col = 1, .row = 1, .file = filename };
     return l;
 }
 
@@ -90,7 +91,7 @@ Token nextToken(Lexer* lexer) {
     } 
     
     /**
-     * Character table (single character only)
+     * Character table (single character only):
      * Character -> Token Value
      * (         -> PC_LPAREN
      * )         -> PC_RPAREN
@@ -313,4 +314,51 @@ Token nextToken(Lexer* lexer) {
     // Invalid token - advance, otherwise just return
     if (t.kind == INVALID) advance(lexer);
     return t;
+}
+
+void printToken(Token* tok) {
+    char* kindBuf[25];
+
+    switch (tok->kind) {
+        case IDENTIFIER: {
+            *kindBuf = "Identifier"; 
+            break;
+        }
+        case KEYWORD: {
+            *kindBuf = "Keyword";
+            break;
+        }
+        case NUM_LITERAL: {
+            *kindBuf = "Number";
+            break;
+        }
+        case CHAR_LITERAL: {
+            *kindBuf = "Character";
+            break;
+        }
+        case STR_LITERAL: {
+            *kindBuf = "String";
+            break;
+        }
+        case PUNCTUATION: {
+            *kindBuf = "Punctuation";
+            break;
+        }
+        case NON_SOURCE: {
+            *kindBuf = "Non-Source";
+            break;
+        }
+        case INVALID: {
+            *kindBuf = "Invalid";
+            break;
+        }
+        case NEWLINE: {
+            *kindBuf = "Newline";
+            break;
+        }
+    }
+
+    printf("%s: %.*s - %zu:%zu (%zu)\n", *kindBuf, (int)tok->length, tok->text, tok->row, tok->col, tok->length);
+
+    return;
 }
