@@ -350,6 +350,7 @@ Token nextToken(Lexer* lexer) {
     return t;
 }
 
+// Used for printing a Token's value
 void printToken(Token* tok) {
     char* kindBuf[25];
 

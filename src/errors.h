@@ -4,9 +4,11 @@
 #include <stdio.h>
 #include <errno.h>
 
+// Success Numbers
 #define SUCCESS -1
 #define USAGEREQ -2
 
+// Error Numbers
 #define UNTERMINATED_BLOCK_COMMENT_ERROR 0
 #define BAD_FILE_DESCRIPTOR_ERROR 1
 #define FILE_TOO_LONG_ERROR 2
@@ -24,6 +26,7 @@
 #define MEM_ERROR 14
 #define UNAVAIL_RESOURCE_ERROR 15
 
+// Misc. Definitions for QOL
 #define S_E stderr
 #define S_O stdout
 #define ERRNO_RESET errno = 0

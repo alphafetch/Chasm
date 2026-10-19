@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Handle any exit (successful or failure)
 _Noreturn void handleExit(int errorNum, const char* file, int row, int col, int savedErrno, const char* extra) {
     errno = savedErrno;
 
