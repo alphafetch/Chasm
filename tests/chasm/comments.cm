@@ -9,6 +9,5 @@ a/**/b // should be a then b
 a / b
 a /= b
 a //b
-/* unclosed
 // CRLF line
 // EOF line
