@@ -42,84 +42,85 @@ typedef enum {
 } TokenKind;
 
 typedef enum {
+    // KW_*          // kw length
     // -- Declarations
-    KW_VAR,          // var
-    KW_CONST,        // const
-    KW_UNSIGNED,     // unsigned
-    KW_DEFINE,       // define
-    KW_LAMBDA,       // lambda
-    KW_STRUCT,       // struct
-    KW_ENUM,         // enum
-    KW_ERROR,        // error
-    KW_INTERFACE,    // interface
-    KW_PUBLIC,       // public
-    KW_PRIVATE,      // private
-    KW_SELF,         // self
+    KW_VAR,          // var 3
+    KW_CONST,        // const 5
+    KW_UNSIGNED,     // unsigned 8
+    KW_DEFINE,       // define 6
+    KW_LAMBDA,       // lambda 6
+    KW_STRUCT,       // struct 6
+    KW_ENUM,         // enum 4
+    KW_ERROR,        // error 5
+    KW_INTERFACE,    // interface 9
+    KW_PUBLIC,       // public 6
+    KW_PRIVATE,      // private 7
+    KW_SELF,         // self 4
     // -- Control Flow
-    KW_IF,           // if
-    KW_OTHER,        // other
-    KW_FOR,          // for
-    KW_FOREACH,      // foreach
-    KW_IN,           // in
-    KW_WHILE,        // while
-    KW_DO,           // do
-    KW_STOP,         // stop
-    KW_CONTINUE,     // continue
-    KW_BREAK,        // break
-    KW_TRAVEL,       // travel 
-    KW_SWITCH,       // switch
-    KW_IS,           // is
-    KW_OTHERWISE,    // otherwise
-    KW_RETURN,       // return
-    KW_LEAVEPROG,    // leaveprog
-    KW_BLOCK,        // block
+    KW_IF,           // if 2
+    KW_OTHER,        // other 5
+    KW_FOR,          // for 3
+    KW_FOREACH,      // foreach 7
+    KW_IN,           // in 2
+    KW_WHILE,        // while 5
+    KW_DO,           // do 2
+    KW_STOP,         // stop 4
+    KW_CONTINUE,     // continue 8
+    KW_BREAK,        // break 5
+    KW_TRAVEL,       // travel 6
+    KW_SWITCH,       // switch 6
+    KW_IS,           // is 2
+    KW_OTHERWISE,    // otherwise 9
+    KW_RETURN,       // return 6
+    KW_LEAVEPROG,    // leaveprog 9
+    KW_BLOCK,        // block 5
     // -- Error Handling
-    KW_ATTEMPT,      // attempt
-    KW_REJECT,       // reject
-    KW_ERR,          // err
-    KW_OF,           // of
+    KW_ATTEMPT,      // attempt 7
+    KW_REJECT,       // reject 6
+    KW_ERR,          // err 3
+    KW_OF,           // of 2
     // -- Memory Management
-    KW_NEW,          // new
-    KW_DEL,          // del
-    KW_DEFER,        // defer
-    KW_SIZEOF,       // sizeof
+    KW_NEW,          // new 3
+    KW_DEL,          // del 3
+    KW_DEFER,        // defer 5
+    KW_SIZEOF,       // sizeof 6
     // -- Values
-    KW_TRUE,         // true
-    KW_FALSE,        // false
-    KW_NULL,         // NULL
-    KW_UNDEFINED,    // undefined
+    KW_TRUE,         // true 4
+    KW_FALSE,        // false 5
+    KW_NULL,         // NULL 4
+    KW_UNDEFINED,    // undefined 9
     // -- Other
-    KW_ASM,          // asm
+    KW_ASM,          // asm 3
     // -- Types
-    KW_VOID,         // void
-    KW_BOOL,         // bool
-    KW_CHAR,         // char
-    KW_UNICHAR,      // unichar
-    KW_BYTE,         // byte
-    KW_DBYTE,        // dbyte
-    KW_STRING,       // string
-    KW_INT,          // int
-    KW_INT8,         // int8
-    KW_INT16,        // int16
-    KW_INT32,        // int32
-    KW_INT64,        // int64
-    KW_SHORT,        // short
-    KW_LONG,         // long
-    KW_FLOAT,        // float
-    KW_FLOAT32,      // float32
-    KW_FLOAT64,      // float64
-    KW_DOUBLE,       // double
-    KW_DOUBLE32,     // double32
-    KW_DOUBLE64,     // double64
-    KW_SZT,          // szt
-    KW_PSZT,         // pszt
+    KW_VOID,         // void 4
+    KW_BOOL,         // bool 4
+    KW_CHAR,         // char 4
+    KW_UNICHAR,      // unichar 7
+    KW_BYTE,         // byte 4
+    KW_DBYTE,        // dbyte 5
+    KW_STRING,       // string 6
+    KW_INT,          // int 3
+    KW_INT8,         // int8 4
+    KW_INT16,        // int16 5
+    KW_INT32,        // int32 5
+    KW_INT64,        // int64 5
+    KW_SHORT,        // short 5
+    KW_LONG,         // long 4
+    KW_FLOAT,        // float 5
+    KW_FLOAT32,      // float32 7
+    KW_FLOAT64,      // float64 7
+    KW_DOUBLE,       // double 6
+    KW_DOUBLE32,     // double32 8
+    KW_DOUBLE64,     // double64 8
+    KW_SZT,          // szt 3
+    KW_PSZT,         // pszt 4
     // -- Directives
-    KW_GET,          // get
-    KW_AS,           // as
-    KW_USE,          // use
-    KW_ELSE,         // else
-    KW_END,          // end
-    KW_BARE,         // bare
+    KW_GET,          // get 3
+    KW_AS,           // as 2
+    KW_USE,          // use 3
+    KW_ELSE,         // else 4
+    KW_END,          // end 3
+    KW_BARE,         // bare 4
 } KeywordKind;
 
 typedef enum {
