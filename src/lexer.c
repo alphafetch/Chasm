@@ -6,6 +6,7 @@
 #include "lexer.h"
 
 #include <stdio.h>
+#include <stddef.h>
 
 #include "errors.h"
 
