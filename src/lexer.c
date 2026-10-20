@@ -9,6 +9,12 @@
 
 #include "errors.h"
 
+// Helper macros for character type detection
+#define IS_ALPHANUMERIC(c) (((c) >= 'a' && (c) <= 'z') || ((c) >= 'A' && (c) <= 'Z') || ((c) >= '0' && (c) <= '9'))
+#define IS_ALPHA(c) (((c) >= 'a' && (c) <= 'z') || ((c) >= 'A' && (c) <= 'Z'))
+#define IS_ALPHANUMERIC_(c) (((c) >= 'a' && (c) <= 'z') || ((c) >= 'A' && (c) <= 'Z') || ((c) >= '0' && (c) <= '9') || ((c) == '_'))
+#define IS_ALPHA_(c) (((c) >= 'a' && (c) <= 'z') || ((c) >= 'A' && (c) <= 'Z') || ((c) == '_'))
+
 // This function gets the character a set distance away from the current character
 // Returns a null terminator (\0) if there isn't anything that far ahead
 // Runs in O(distance); effectively O(1) because callers pass at most 2
@@ -325,6 +331,28 @@ Token nextToken(Lexer* lexer) {
             break;
     }
 
+    // Invalid means no type has yet to be found for the token
+    if (t.kind == INVALID) {
+        // Check if the identifier starts with a-z A-Z or _
+        if (IS_ALPHA_((unsigned char)*start)) {
+            t.kind = IDENTIFIER;
+
+            // Continue while the identifier is a-z A-Z 0-9 or _
+            while (IS_ALPHANUMERIC_((unsigned char)*(lexer->c))) {
+                advance(lexer);
+            }
+
+            // Set the token's length to the length of what was consumed
+            // Need an explicit (size_t) conversion because lexer->c - start returns a ptrdiff_t
+            t.length = (size_t)(lexer->c - start);
+        }
+    }
+
+    // Reset 
+    start = lexer->c;
+    row = lexer->row;
+    col = lexer->col;
+
     // Check what type of punctuation it is, if it is a punctuation token, and apply necessary changes
     if (isThreeCharPunctuation) {
         t.kind = PUNCTUATION;
@@ -345,7 +373,7 @@ Token nextToken(Lexer* lexer) {
         advance(lexer);
     }
 
-    // Invalid token - advance, otherwise just return
+    // Invalid token - advance, otherwise just return the constructed token
     if (t.kind == INVALID) advance(lexer);
     return t;
 }
