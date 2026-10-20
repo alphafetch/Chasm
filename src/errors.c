@@ -4,7 +4,7 @@
 #include <string.h>
 
 // Handle any exit (successful or failure)
-_Noreturn void handleExit(int errorNum, const char* file, int row, int col, int savedErrno, const char* extra) {
+_Noreturn void handleExit(int errorNum, const char* file, size_t row, size_t col, int savedErrno, const char* extra) {
     errno = savedErrno;
 
     if (errorNum != SUCCESS && errorNum != USAGEREQ) {

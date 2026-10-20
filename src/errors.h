@@ -36,6 +36,6 @@
 #define EMPTY_STR ""
 #define EXIT_MEMORY_ERROR 2
 
-_Noreturn void handleExit(int errorNum, const char* file, int row, int col, int savedErrno, const char* extra);
+_Noreturn void handleExit(int errorNum, const char* file, size_t row, size_t col, int savedErrno, const char* extra);
 
 #endif
