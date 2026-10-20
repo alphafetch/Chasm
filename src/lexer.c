@@ -348,11 +348,6 @@ Token nextToken(Lexer* lexer) {
         }
     }
 
-    // Reset 
-    start = lexer->c;
-    row = lexer->row;
-    col = lexer->col;
-
     // Check what type of punctuation it is, if it is a punctuation token, and apply necessary changes
     if (isThreeCharPunctuation) {
         t.kind = PUNCTUATION;
