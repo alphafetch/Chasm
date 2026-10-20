@@ -15,7 +15,7 @@ _Noreturn void handleExit(int errorNum, const char* file, size_t row, size_t col
             fprintf(S_O, "Chasm compilation completed successfully (exited with code 0)\n");
             exit(EXIT_SUCCESS);
         case UNTERMINATED_BLOCK_COMMENT_ERROR:
-            fprintf(S_E, "unterminated block comment at %s:%d:%d\n", file, row, col);
+            fprintf(S_E, "unterminated block comment at %s:%zu:%zu\n", file, row, col);
             exit(EXIT_FAILURE);
         case BAD_FILE_DESCRIPTOR_ERROR:
             fprintf(S_E, "`%s` has a bad file descriptor\n", file);
