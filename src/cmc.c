@@ -10,8 +10,7 @@
 #include "lexer.h"
 #include "errors.h"
 
-#define ULL unsigned long long
-#define FTELL_FAIL_VAL -1LL
+#define FTELL_FAIL_VAL -1L
 #define CF_SUCCESS 0
 
 int main(int argc, char* argv[]) {
@@ -57,8 +56,8 @@ int main(int argc, char* argv[]) {
         }
 
         ERRNO_RESET;
-        ULL fsize = ftell(fp);
-        if ((long long)fsize == FTELL_FAIL_VAL) {
+        long fsize = ftell(fp);
+        if (fsize == FTELL_FAIL_VAL) {
             SAVE_ERRNO;
             fclose(fp);
             switch (LOAD_ERRNO) {
