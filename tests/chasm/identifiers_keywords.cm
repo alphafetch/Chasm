@@ -28,8 +28,8 @@ eof
     undefined Keyword
     undef Identifier
     true Keyword
-    t Keyword (if tfDef flag on)
-    f Keyword (as above)
+    t Identifier
+    f Identifier
     false Keyword
     NEWLINE Newline
     _ Identifier
