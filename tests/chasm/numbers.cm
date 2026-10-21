@@ -28,6 +28,7 @@
 a.b
 x[0]
 f(1, 2)
+15
 
 /*
     No Expected output yet
