@@ -37,6 +37,7 @@ eof
     a1 Identifier
     a_b_c Identifier
     x9y Identifier
+    NEWLINE Newline
     a Identifier
     . Punctuation
     b Identifier
@@ -58,6 +59,7 @@ eof
     ^^ Punctuation
     end Keyword
     NEWLINE Newline
+    ^^ Punctuation
     get Keyword
     io Identifier
     as Keyword
@@ -76,5 +78,7 @@ eof
     int Keyword
     NEWLINE Newline
     eof Identifier
+    NEWLINE Newline
+    NEWLINE Newline
     EOF Non-Source
 */
