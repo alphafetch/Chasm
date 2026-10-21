@@ -1,3 +1,8 @@
+/**
+ * @file errors.c
+ * @brief Handle errors gracefully, and exit with the correct failure code
+ */
+
 #include "errors.h"
 
 #include <stdlib.h>

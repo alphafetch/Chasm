@@ -1,3 +1,8 @@
+/**
+ * @file errors.h
+ * @brief Header file with error code definitions for errors.c
+ */
+
 #ifndef CHASM_ERRORS_H
 #define CHASM_ERRORS_H
 
