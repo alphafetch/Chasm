@@ -8,6 +8,8 @@
 
 #include <stdlib.h>
 
+#define KEYWORD_COUNT 70
+
 typedef enum {
     IDENTIFIER,      // Letters, digits, and _, not starting with a digit, case-sensitive
     KEYWORD,         // Declarations, control flow, errors, memory, values, other keywords, types, and directives:
@@ -181,6 +183,16 @@ typedef enum {
     // -- Hash Prefix
     PC_HASHDIRECTIVE,// #
 } PunctuationKind;
+
+// Stores a keyword for the below keyword storage
+typedef struct {
+    const char* text;
+    size_t length;
+    KeywordKind kw;
+} Keyword;
+
+// Defined in keywords.c
+extern const Keyword KEYWORD_LIST[KEYWORD_COUNT];
 
 typedef struct {
     TokenKind kind;         // Token type

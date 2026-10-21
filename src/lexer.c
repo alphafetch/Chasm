@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stddef.h>
+#include <string.h>
 
 #include "errors.h"
 
@@ -346,6 +347,21 @@ Token nextToken(Lexer* lexer) {
             // Set the token's length to the length of what was consumed
             // Need an explicit (size_t) conversion because lexer->c - start returns a ptrdiff_t
             t.length = (size_t)(lexer->c - start);
+        }
+    }
+
+    // If it's an identifier, there's a chance it is a keyword, so compare to the list defined in keywords.c
+    if (t.kind == IDENTIFIER) {
+        for (int i = 0; i < KEYWORD_COUNT; i++) {
+            if (KEYWORD_LIST[i].length != t.length) {
+                continue;
+            }
+            
+            if (memcmp(t.text, KEYWORD_LIST[i].text, t.length) == 0) {
+                t.kind = KEYWORD;
+                t.typeValue.kw = KEYWORD_LIST[i].kw;
+                break;
+            }
         }
     }
 
