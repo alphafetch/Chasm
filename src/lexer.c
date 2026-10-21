@@ -390,7 +390,7 @@ Token nextToken(Lexer* lexer) {
     return t;
 }
 
-// Find a keyword string in the KEYWORD_LIST array
+// Find a keyword string in the KEYWORD_ENUM_CONVERSION_TABLE
 static inline const char* findKeywordString(KeywordKind kw) {
     return KEYWORD_ENUM_CONVERSION_TABLE[kw];
 }
