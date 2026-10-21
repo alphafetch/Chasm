@@ -16,13 +16,13 @@ define ^int main() {
     float32 Keyword
     a Identifier
     = Punctuation
-    1f Literal
+    1f Num_Literal
     ; Punctuation
     NEWLINE Newline
     int Keyword
     hex Identifier
     = Punctuation
-    0x1f Literal
+    0x1f Num_Literal
     ; Punctuation
     NEWLINE Newline
     } Punctuation

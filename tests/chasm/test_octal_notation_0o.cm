@@ -16,13 +16,13 @@ define ^int main() {
     int Keyword
     octTest Identifier
     = Punctuation
-    010 Literal
+    010 Num_Literal
     ; Punctuation
     NEWLINE Newline
     int Keyword
     octTestCorrect Identifier 
     = Punctuation
-    0o010 Literal
+    0o010 Num_Literal
     ; Punctuation
     NEWLINE Newline
     } Punctuation
