@@ -193,6 +193,7 @@ typedef struct {
 
 // Defined in keywords.c
 extern const Keyword KEYWORD_LIST[KEYWORD_COUNT];
+extern const char* KEYWORD_ENUM_CONVERSION_TABLE[KEYWORD_COUNT];
 
 typedef struct {
     TokenKind kind;         // Token type

@@ -390,6 +390,11 @@ Token nextToken(Lexer* lexer) {
     return t;
 }
 
+// Find a keyword string in the KEYWORD_LIST array
+static inline const char* findKeywordString(KeywordKind kw) {
+    return KEYWORD_ENUM_CONVERSION_TABLE[kw];
+}
+
 // Used for printing a Token's value
 // Finishes in O(1) time
 void printToken(Token* tok) {
@@ -434,7 +439,10 @@ void printToken(Token* tok) {
         }
     }
 
-    printf("%s: %.*s - %zu:%zu (%zu)\n", *kindBuf, (int)tok->length, tok->text, tok->row, tok->col, tok->length);
+    if (tok->kind != KEYWORD)
+        printf("%s: %.*s - %zu:%zu (%zu)\n", *kindBuf, (int)tok->length, tok->text, tok->row, tok->col, tok->length);
+    else 
+        printf("%s: %.*s (%s) - %zu:%zu (%zu)\n", *kindBuf, (int)tok->length, tok->text, findKeywordString(tok->typeValue.kw), tok->row, tok->col, tok->length);
 
     return;
 }
