@@ -32,7 +32,7 @@ endif
 CFLAGS_RELEASE = -O2
 CFLAGS_DEBUG = $(CFLAGS_STRICT) -O0 -ggdb $(SAN_FLAGS)
 
-EXECUTABLE_NAME = chasm$(EXE_EXT)
+EXECUTABLE_NAME = cmc$(EXE_EXT)
 
 .PHONY: check debug release compile_headers compile-lexer_h clean clean-gch clean-exe
 
