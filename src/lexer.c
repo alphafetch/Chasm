@@ -502,6 +502,10 @@ void printToken(Token* tok) {
             *kindBuf = "Newline";
             break;
         }
+        default: {
+            *kindBuf = "";
+            break;
+        }
     }
 
     if (tok->kind == KEYWORD)
