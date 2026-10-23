@@ -16,6 +16,12 @@
 #define IS_ALPHA(c) (((c) >= 'a' && (c) <= 'z') || ((c) >= 'A' && (c) <= 'Z'))
 #define IS_ALPHANUMERIC_(c) (((c) >= 'a' && (c) <= 'z') || ((c) >= 'A' && (c) <= 'Z') || ((c) >= '0' && (c) <= '9') || ((c) == '_'))
 #define IS_ALPHA_(c) (((c) >= 'a' && (c) <= 'z') || ((c) >= 'A' && (c) <= 'Z') || ((c) == '_'))
+#define IS_DOT(c) ((c) == '.')
+#define IS_NUMERIC(c) ((c) >= '0' && (c) <= '9')
+#define IS_SUFFIX(c) ((c) == 'f' || (c) == 'l' || (c) == 's' || (c) == 'z' || (c) == 'u')
+
+// Must be used safely! Do not use at the beginning of a buffer
+#define LOOKBEHIND(lxr, ct) (*(lxr->c - ct))
 
 // This function gets the character a set distance away from the current character
 // Returns a null terminator (\0) if there isn't anything that far ahead
@@ -363,6 +369,65 @@ Token nextToken(Lexer* lexer) {
                 break;
             }
         }
+    }
+
+    /**
+     * number   = digits [ '.' digits [ exponent ] ] suffix
+     * exponent = 'e' [ '+' | '-' ] digits
+     * suffix   = any run of the letters f l s z u without duplicates
+     */
+
+    if (t.kind == INVALID && IS_NUMERIC(*start)) {
+        // Scanner - Go through the number, taking in anything
+        while (IS_ALPHANUMERIC_(*(lexer->c)) || IS_DOT(*(lexer->c))) {
+            advance(lexer);
+            // LOOKBEHIND safely used, advance is used prior
+            if (LOOKBEHIND(lexer, 1) == 'e') {
+                if (*(lexer->c) == '+' || *(lexer->c) == '-') {
+                    advance(lexer);
+                    continue;
+                }
+            }
+        }
+
+        t.length = (size_t)(lexer->c - start);
+        t.kind = NUM_LITERAL;
+
+        // Validator - Check the scanned number to verify its validity
+        size_t i = 0;
+        const char* validatorPtr = start;
+        short fraction = 0;
+        
+        // Phase 1 - Consume digits until there is a dot
+        while (IS_NUMERIC(validatorPtr[i])) i++;
+        
+        // Phase 2 - If the character is a dot, consume it, and any digits after it
+        if (IS_DOT(validatorPtr[i])) {
+            i++; fraction = 1;
+            if (!IS_NUMERIC(validatorPtr[i])) {
+                t.kind = INVALID;
+            }
+        }
+        while (IS_NUMERIC(validatorPtr[i])) i++;
+
+        // Phase 3 - If there was a fraction, and the current character is e, consume the exponent
+        if (validatorPtr[i] == 'e') {
+            if (fraction) {
+                i++;
+                if ((validatorPtr[i] == '+' || validatorPtr[i] == '-') && IS_NUMERIC(validatorPtr[i + 1])) i++;
+                else if (IS_NUMERIC(validatorPtr[i])) i++;
+                else t.kind = INVALID;
+                while (IS_NUMERIC(validatorPtr[i])) {
+                    i++;
+                }
+            }
+        }
+
+        // Phase 4 - Any remaining alpha letters must be suffixes
+        while (IS_SUFFIX(validatorPtr[i])) i++;
+
+        // Phase 5 - Check if it reached the end
+        if (i != t.length) t.kind = INVALID;
     }
 
     // Check what type of punctuation it is, if it is a punctuation token, and apply necessary changes
