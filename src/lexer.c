@@ -439,10 +439,12 @@ void printToken(Token* tok) {
         }
     }
 
-    if (tok->kind != KEYWORD)
-        printf("%s: %.*s - %zu:%zu (%zu)\n", *kindBuf, (int)tok->length, tok->text, tok->row, tok->col, tok->length);
-    else 
+    if (tok->kind == KEYWORD)
         printf("%s: %.*s (%s) - %zu:%zu (%zu)\n", *kindBuf, (int)tok->length, tok->text, findKeywordString(tok->typeValue.kw), tok->row, tok->col, tok->length);
+    else if (tok->kind == NEWLINE)
+        printf("%s: \\n - %zu:%zu (%zu)\n", *kindBuf, tok->row, tok->col, tok->length);
+    else
+        printf("%s: %.*s - %zu:%zu (%zu)\n", *kindBuf, (int)tok->length, tok->text, tok->row, tok->col, tok->length);
 
     return;
 }
