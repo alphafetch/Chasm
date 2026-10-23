@@ -49,4 +49,5 @@ define ^int main() {
     } Punctuation
     NEWLINE Newline
     NEWLINE Newline
+    EOF Non-Source
 */

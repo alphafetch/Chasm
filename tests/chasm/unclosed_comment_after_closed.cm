@@ -4,3 +4,5 @@ x  // c
 // Expected output:
 // x Identifier
 // NEWLINE Newline
+// NEWLINE Newline
+// EOF Non-Source
