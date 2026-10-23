@@ -66,7 +66,7 @@ _Noreturn void handleExit(int errorNum, const char* file, size_t row, size_t col
             fprintf(S_E, "The resource is unavailable\n");
             exit(EXIT_FAILURE);
         case USAGEREQ:
-            fprintf(S_O, "Usage: chasm <file>\n");
+            fprintf(S_O, "Usage: cmc <file>\n");
             exit(EXIT_FAILURE);
         case UNKNOWN_ERROR:
             fprintf(S_E, "An unknown error occurred while compiling `%s` (%s)\nOUTPUT: %d: %s\n", file, extra, errno, strerror(errno));
