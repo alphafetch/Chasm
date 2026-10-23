@@ -18,3 +18,47 @@
 1.5e+
 2.0e10
 1.5e3
+
+/*
+    Expected output:
+    0.1f Number
+    NEWLINE Newline
+    1.0s Number
+    NEWLINE Newline
+    5.22z Number
+    NEWLINE Newline
+    8.423u Number
+    NEWLINE Newline
+    223.4l Number
+    NEWLINE Newline
+    888.8ul Number
+    NEWLINE Newline
+    888.8lu Number
+    NEWLINE Newline
+    1u Number
+    NEWLINE Newline
+    15lu Number
+    NEWLINE Newline
+    123abc Invalid
+    NEWLINE Newline
+    5ul Number
+    NEWLINE Newline
+    5uu Number (will error in parser)
+    NEWLINE Newline
+    1.5e3 Number
+    NEWLINE Newline
+    2.0e10 Number
+    NEWLINE Newline
+    1.5e-3f Number
+    NEWLINE Newline
+    1. Invalid
+    NEWLINE Newline
+    1.5e Invalid
+    NEWLINE Newline
+    1.5e+ Invalid
+    NEWLINE Newline
+    2.0e10 Number
+    NEWLINE Newline
+    1.5e3 Number
+    EOF Non-Source
+*/
