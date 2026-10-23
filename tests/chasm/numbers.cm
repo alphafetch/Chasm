@@ -31,5 +31,77 @@ f(1, 2)
 15
 
 /*
-    No Expected output yet
+    Expected output:
+    1.2 Number (will error in parser due to no float suffix)
+    NEWLINE Newline
+    0 Number
+    NEWLINE Newline
+    010 Number
+    NEWLINE Newline
+    09 Number
+    NEWLINE Newline
+    0x15 Number
+    NEWLINE Newline
+    0x1f Number
+    NEWLINE Newline
+    0b1101 Number
+    NEWLINE Newline
+    0o010 Number
+    NEWLINE Newline
+    0.5f Number
+    NEWLINE Newline
+    1.2e15 Number
+    NEWLINE Newline
+    1u Number
+    NEWLINE Newline
+    2l Number
+    NEWLINE Newline
+    1f Number
+    NEWLINE Newline
+    1z Number
+    NEWLINE Newline
+    4s Number
+    NEWLINE Newline
+    0x1f Number
+    NEWLINE Newline
+    0o17 Number
+    NEWLINE Newline
+    1f Number (will error in parser due to no fractional value)
+    NEWLINE Newline
+    1.5.2 Invalid
+    NEWLINE Newline
+    0x Invalid
+    NEWLINE Newline
+    0b2 Invalid
+    NEWLINE Newline
+    0o8 Invalid
+    NEWLINE Newline
+    1. Invalid
+    NEWLINE Newline
+    1.5.2 Invalid
+    NEWLINE Newline
+    123abc Invalid
+    NEWLINE Newline
+    0xGG Invalid
+    NEWLINE Newline
+    1e Invalid
+    NEWLINE Newline
+    a Identifier
+    . Punctuation
+    b Identifier
+    NEWLINE Newline
+    x Identifier
+    [ Punctuation
+    0 Number
+    ] Punctuation
+    NEWLINE Newline
+    f Identifier
+    ( Punctuation
+    1 Number
+    , Punctuation
+    2 Number
+    ) Punctuation
+    NEWLINE Newline
+    15 Number
+    EOF Non-Source
 */
