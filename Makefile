@@ -86,6 +86,6 @@ clean-gch:
 clean-exe:
 	@echo ""
 	@echo "Cleaning executables..."
-	$(RM) chasm chasm.exe
+	$(RM) cmc cmc.exe
 	@echo "All executables deleted"
 	@echo ""
