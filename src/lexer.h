@@ -23,7 +23,7 @@ typedef enum {
                      //               | float32, float64, double, double32, double64, szt, pszt
                      //     Directives: get, as, use, else, end, bare (define and if above)
     NUM_LITERAL,     // Decimal, hex, binary, octal, and float
-                     // f, l, s, z, u - combinable, f not on hex - because it is a hex digit
+                     // f, l, s, z, u - combinable; no `f` suffix on hex, because it is a hex digit
     CHAR_LITERAL,    // 'a' and '\u{1F600}' as well as escapes:
                      //   Escape Codes: \n \t \r \0 \\ \' \" \xHH \u{H...}
     STR_LITERAL,     // "..." which may span lines
