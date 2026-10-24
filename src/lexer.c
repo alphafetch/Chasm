@@ -23,6 +23,16 @@
 // Must be used safely! Do not use at the beginning of a buffer
 #define LOOKBEHIND(lxr, ct) (*(lxr->c - ct))
 
+// Number constraint values
+#define NUM_DEC 0 // Decimal number, e.g. 1.5f or 62
+#define NUM_HEX 1 // Hexadecimal number, e.g. 0x1f or 0x8e
+#define NUM_BIN 2 // Binary number, e.g. 0b1011 or 0b110011
+#define NUM_OCT 3 // Octal number, e.g. 0o010 or 0o072
+// Number validation macros
+#define HEX_VALID(c) (((c) >= '0' && (c) <= '9') || (((c) >= 'a' && (c) <= 'f') || ((c) >= 'A' && (c) <= 'F')))
+#define BIN_VALID(c) ((c) == '0' || (c) == '1')
+#define OCT_VALID(c) ((c) >= '0' && (c) <= '7')
+
 // This function gets the character a set distance away from the current character
 // Returns a null terminator (\0) if there isn't anything that far ahead
 // Runs in O(distance); effectively O(1) because callers pass at most 2
@@ -378,11 +388,25 @@ Token nextToken(Lexer* lexer) {
      */
 
     if (t.kind == INVALID && IS_NUMERIC(*start)) {
+        // Phase 0 - Check if there is a prefix
+
+        /**
+         * Any number without a prefix -> NUM_DEC (decimal)
+         * 0x0-9a-fA-F                 -> NUM_HEX (hexadecimal)
+         * 0b0|1                       -> NUM_BIN (binary)
+         * 0o0-7                       -> NUM_OCT (octal)
+         */
+
+        short numberType = NUM_DEC;
+        if (*(lexer->c) == '0' && lookahead(lexer, 1) == 'x' && HEX_VALID(lookahead(lexer, 2))) numberType = NUM_HEX;
+        else if (*(lexer->c) == '0' && lookahead(lexer, 1) == 'b' && BIN_VALID(lookahead(lexer, 2))) numberType = NUM_BIN;
+        else if (*(lexer->c) == '0' && lookahead(lexer, 1) == 'o' && OCT_VALID(lookahead(lexer, 2))) numberType = NUM_OCT;
+
         // Scanner - Go through the number, taking in anything
         while (IS_ALPHANUMERIC_(*(lexer->c)) || IS_DOT(*(lexer->c))) {
             advance(lexer);
             // LOOKBEHIND safely used, advance is used prior
-            if (LOOKBEHIND(lexer, 1) == 'e') {
+            if (LOOKBEHIND(lexer, 1) == 'e' && numberType == NUM_DEC) {
                 if (*(lexer->c) == '+' || *(lexer->c) == '-') {
                     advance(lexer);
                     continue;
@@ -397,21 +421,38 @@ Token nextToken(Lexer* lexer) {
         size_t i = 0;
         const char* validatorPtr = start;
         short fraction = 0;
-        
-        // Phase 1 - Consume digits until there is a dot
-        while (IS_NUMERIC(validatorPtr[i])) i++;
+
+        if (numberType != NUM_DEC) 
+            // Move i past the prefix
+            i += 2;
+
+        // Phase 1 - Consume digits (or hex digits, only one with alpha characters) until there is a dot
+        switch (numberType) {
+            case NUM_DEC:
+                while (IS_NUMERIC(validatorPtr[i])) i++;
+                break;
+            case NUM_HEX:
+                while (HEX_VALID(validatorPtr[i])) i++;
+                break;
+            case NUM_BIN:
+                while (BIN_VALID(validatorPtr[i])) i++;
+                break;
+            case NUM_OCT:
+                while (OCT_VALID(validatorPtr[i])) i++;
+                break;
+        }
         
         // Phase 2 - If the character is a dot, consume it, and any digits after it
-        if (IS_DOT(validatorPtr[i])) {
+        if (numberType == NUM_DEC && IS_DOT(validatorPtr[i])) {
             i++; fraction = 1;
             if (!IS_NUMERIC(validatorPtr[i])) {
                 t.kind = INVALID;
             }
         }
-        while (IS_NUMERIC(validatorPtr[i])) i++;
+        if (numberType == NUM_DEC) while (IS_NUMERIC(validatorPtr[i])) i++;
 
         // Phase 3 - If there was a fraction, and the current character is e, consume the exponent
-        if (validatorPtr[i] == 'e') {
+        if (numberType == NUM_DEC && validatorPtr[i] == 'e') {
             if (fraction) {
                 i++;
                 if ((validatorPtr[i] == '+' || validatorPtr[i] == '-') && IS_NUMERIC(validatorPtr[i + 1])) i++;
@@ -424,7 +465,8 @@ Token nextToken(Lexer* lexer) {
         }
 
         // Phase 4 - Any remaining alpha letters must be suffixes
-        while (IS_SUFFIX(validatorPtr[i])) i++;
+        if (numberType != NUM_HEX) while (IS_SUFFIX(validatorPtr[i])) i++;
+        else while (IS_SUFFIX(validatorPtr[i]) && validatorPtr[i] != 'f') i++;
 
         // Phase 5 - Check if it reached the end
         if (i != t.length) t.kind = INVALID;
