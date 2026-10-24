@@ -16,7 +16,7 @@ define ^int main() {
     float32 Keyword
     a Identifier
     = Punctuation
-    1f Number
+    1.0f Number
     ; Punctuation
     NEWLINE Newline
     int Keyword
