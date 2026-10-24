@@ -1,0 +1,67 @@
+0x1e+5
+0xFFu
+0b102
+0o17f
+0X1
+0x
+0b1.1
+0xe
+0xfFe2
+0b10110
+0o257
+15
+0x1e+5
+0x1e-5
+0o7+1
+0b1e+1
+0x10+1
+
+/*
+    Expected output:
+    0x1e Number
+    + Punctuation
+    5 Number
+    NEWLINE Newline
+    0xFFu Number
+    NEWLINE Newline
+    0b102 Invalid
+    NEWLINE Newline
+    0o17f Number
+    NEWLINE Newline
+    0X1 Invalid
+    NEWLINE Newline
+    0x Invalid
+    NEWLINE Newline
+    0b1.1 Invalid
+    NEWLINE Newline
+    0xe Number
+    NEWLINE Newline
+    0xfFe2 Number
+    NEWLINE Newline
+    0b10110 Number
+    NEWLINE Newline
+    0o257 Number
+    NEWLINE Newline
+    15 Number
+    NEWLINE Newline
+    0x1e Number
+    + Punctuation
+    1 Number
+    NEWLINE Newline
+    0x1e Number
+    - Punctuation
+    1 Number
+    NEWLINE Newline
+    0o7 number
+    + Punctuation
+    1 Number
+    NEWLINE Newline
+    0b1e+1 Invalid
+    NEWLINE Newline
+    0x10 Number
+    + Punctuation
+    1 Number
+    NEWLINE Newline
+    NEWLINE Newline
+    EOF Non-Source
+*/
