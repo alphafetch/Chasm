@@ -46,17 +46,19 @@
     NEWLINE Newline
     0x1e Number
     + Punctuation
-    1 Number
+    5 Number
     NEWLINE Newline
     0x1e Number
     - Punctuation
-    1 Number
+    5 Number
     NEWLINE Newline
-    0o7 number
+    0o7 Number
     + Punctuation
     1 Number
     NEWLINE Newline
-    0b1e+1 Invalid
+    0b1e Invalid
+    + Punctuation
+    1 Number
     NEWLINE Newline
     0x10 Number
     + Punctuation
