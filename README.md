@@ -62,7 +62,7 @@ Example run:
 Compiling executable (debug)
 --------------------------------
 
-gcc -Wall -Wextra -std=c11 -Wshadow -Wformat=2 -Wundef -Werror -O0 -ggdb  src/cmc.c src/errors.c src/keywords.c src/lexer.c -o chasm.exe
+gcc -Wall -Wextra -std=c11 -Wshadow -Wformat=2 -Wundef -Werror -O0 -ggdb  src/cmc.c src/errors.c src/keywords.c src/lexer.c -o cmc.exe
 ```
 
 ### Release Build
@@ -75,7 +75,7 @@ Example run:
 Compiling executable (release)
 --------------------------------
 
-gcc -Wall -Wextra -std=c11 -O2 src/cmc.c src/errors.c src/keywords.c src/lexer.c -o chasm.exe
+gcc -Wall -Wextra -std=c11 -O2 src/cmc.c src/errors.c src/keywords.c src/lexer.c -o cmc.exe
 ```
 
 ### Clean
