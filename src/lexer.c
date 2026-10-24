@@ -451,7 +451,7 @@ Token nextToken(Lexer* lexer) {
     }
 
     // Nothing was consumed, advance to avoid being stuck in an infinite loop
-    if (lexer->c == start) advance(lexer);
+    if (lexer->c == start && t.kind == INVALID) advance(lexer);
     return t;
 }
 
