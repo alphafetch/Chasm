@@ -77,6 +77,63 @@ Lexer createLexer(const char* src, const char* filename) {
     return l;
 }
 
+// Validator - Check the scanned number to verify its validity
+// This returns void, only directly editing the token given
+static void validateNumberLiteral(Token* t, const char* start, short numberType) {
+    size_t i = 0;
+    const char* validatorPtr = start;
+    short fraction = 0;
+
+    if (numberType != NUM_DEC)
+        // Move i past the prefix
+        i += 2;
+
+    // Phase 1 - Consume digits (or hex digits, only one with alpha characters) until there is a dot
+    switch (numberType) {
+        case NUM_DEC:
+            while (IS_NUMERIC(validatorPtr[i])) i++;
+            break;
+        case NUM_HEX:
+            while (HEX_VALID(validatorPtr[i])) i++;
+            break;
+        case NUM_BIN:
+            while (BIN_VALID(validatorPtr[i])) i++;
+            break;
+        case NUM_OCT:
+            while (OCT_VALID(validatorPtr[i])) i++;
+            break;
+    }
+    
+    // Phase 2 - If the character is a dot, consume it, and any digits after it
+    if (numberType == NUM_DEC && IS_DOT(validatorPtr[i])) {
+        i++; fraction = 1;
+        if (!IS_NUMERIC(validatorPtr[i])) {
+            t->kind = INVALID;
+        }
+    }
+    if (numberType == NUM_DEC) while (IS_NUMERIC(validatorPtr[i])) i++;
+
+    // Phase 3 - If there was a fraction, and the current character is e, consume the exponent
+    if (numberType == NUM_DEC && validatorPtr[i] == 'e') {
+        if (fraction) {
+            i++;
+            if ((validatorPtr[i] == '+' || validatorPtr[i] == '-') && IS_NUMERIC(validatorPtr[i + 1])) i++;
+            else if (IS_NUMERIC(validatorPtr[i])) i++;
+            else t->kind = INVALID;
+            while (IS_NUMERIC(validatorPtr[i])) {
+                i++;
+            }
+        }
+    }
+
+    // Phase 4 - Any remaining alpha letters must be suffixes
+    if (numberType != NUM_HEX) while (IS_SUFFIX(validatorPtr[i])) i++;
+    else while (IS_SUFFIX(validatorPtr[i]) && validatorPtr[i] != 'f') i++;
+
+    // Phase 5 - Check if it reached the end
+    if (i != t->length) t->kind = INVALID;
+}
+
 // Get and return the next token currently in the lexer's source
 // This function should be O(n) time per file due to consuming each character once
 Token nextToken(Lexer* lexer) {
@@ -417,59 +474,7 @@ Token nextToken(Lexer* lexer) {
         t.length = (size_t)(lexer->c - start);
         t.kind = NUM_LITERAL;
 
-        // Validator - Check the scanned number to verify its validity
-        size_t i = 0;
-        const char* validatorPtr = start;
-        short fraction = 0;
-
-        if (numberType != NUM_DEC)
-            // Move i past the prefix
-            i += 2;
-
-        // Phase 1 - Consume digits (or hex digits, only one with alpha characters) until there is a dot
-        switch (numberType) {
-            case NUM_DEC:
-                while (IS_NUMERIC(validatorPtr[i])) i++;
-                break;
-            case NUM_HEX:
-                while (HEX_VALID(validatorPtr[i])) i++;
-                break;
-            case NUM_BIN:
-                while (BIN_VALID(validatorPtr[i])) i++;
-                break;
-            case NUM_OCT:
-                while (OCT_VALID(validatorPtr[i])) i++;
-                break;
-        }
-        
-        // Phase 2 - If the character is a dot, consume it, and any digits after it
-        if (numberType == NUM_DEC && IS_DOT(validatorPtr[i])) {
-            i++; fraction = 1;
-            if (!IS_NUMERIC(validatorPtr[i])) {
-                t.kind = INVALID;
-            }
-        }
-        if (numberType == NUM_DEC) while (IS_NUMERIC(validatorPtr[i])) i++;
-
-        // Phase 3 - If there was a fraction, and the current character is e, consume the exponent
-        if (numberType == NUM_DEC && validatorPtr[i] == 'e') {
-            if (fraction) {
-                i++;
-                if ((validatorPtr[i] == '+' || validatorPtr[i] == '-') && IS_NUMERIC(validatorPtr[i + 1])) i++;
-                else if (IS_NUMERIC(validatorPtr[i])) i++;
-                else t.kind = INVALID;
-                while (IS_NUMERIC(validatorPtr[i])) {
-                    i++;
-                }
-            }
-        }
-
-        // Phase 4 - Any remaining alpha letters must be suffixes
-        if (numberType != NUM_HEX) while (IS_SUFFIX(validatorPtr[i])) i++;
-        else while (IS_SUFFIX(validatorPtr[i]) && validatorPtr[i] != 'f') i++;
-
-        // Phase 5 - Check if it reached the end
-        if (i != t.length) t.kind = INVALID;
+        validateNumberLiteral(&t, start, numberType);
     }
 
     // Check what type of punctuation it is, if it is a punctuation token, and apply necessary changes
