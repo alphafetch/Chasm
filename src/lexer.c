@@ -450,8 +450,8 @@ Token nextToken(Lexer* lexer) {
         advance(lexer);
     }
 
-    // Invalid token - advance, otherwise just return the constructed token
-    if (t.kind == INVALID) advance(lexer);
+    // Nothing was consumed, advance to avoid being stuck in an infinite loop
+    if (lexer->c == start) advance(lexer);
     return t;
 }
 
