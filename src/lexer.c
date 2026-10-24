@@ -422,7 +422,7 @@ Token nextToken(Lexer* lexer) {
         const char* validatorPtr = start;
         short fraction = 0;
 
-        if (numberType != NUM_DEC) 
+        if (numberType != NUM_DEC)
             // Move i past the prefix
             i += 2;
 
