@@ -17,5 +17,5 @@ define ^int main() {
     var Keyword
     str Identifier
     = Punctuation
-    Error: unclosed string, reported at line 4, column 15
+    Error.0016
 */

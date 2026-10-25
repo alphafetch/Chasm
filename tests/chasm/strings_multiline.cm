@@ -1,0 +1,21 @@
+m = "line one
+line two";
+n = "a
+
+b";
+
+/*
+    Expected output:
+    m Identifier
+    = Punctuation
+    "line one\r\nline two" String
+    ; Punctuation
+    NEWLINE Newline
+    n Identifier
+    = Punctuation
+    "a\r\n\r\nb" String
+    ; Punctuation
+    NEWLINE Newline
+    NEWLINE Newline
+    EOF Non-Source
+*/

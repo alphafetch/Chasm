@@ -1,0 +1,57 @@
+"" "abc" "tab\there" "q\"q" "\\" "\x41\u{1F600}" "a b" "it's" '"'
+"\q"
+"\x4"
+"\x4G"
+"\u41"
+"\u{}"
+"\u{41"
+"\n\t\r\0\'\""
+s="a";
+f("a","b");
+"a""b"
+
+/*
+    Expected output:
+    "" String
+    "abc" String
+    "tab\there" String
+    "q\"q" String
+    "\\" String
+    "\x41\u{1F600}" String
+    "a b" String
+    "it's" String
+    '"' Character
+    NEWLINE Newline
+    "\q" Invalid
+    NEWLINE Newline
+    "\x4" Invalid
+    NEWLINE Newline
+    "\x4G" Invalid
+    NEWLINE Newline
+    "\u41" Invalid
+    NEWLINE Newline
+    "\u{}" Invalid
+    NEWLINE Newline
+    "\u{41" Invalid
+    NEWLINE Newline
+    "\n\t\r\0\'\"" String
+    NEWLINE Newline
+    s Identifier
+    = Punctuation
+    "a" String
+    ; Punctuation
+    NEWLINE Newline
+    f Identifier
+    ( Punctuation
+    "a" String
+    , Punctuation
+    "b" String
+    ) Punctuation
+    ; Punctuation
+    NEWLINE Newline
+    "a" String
+    "b" String
+    NEWLINE Newline
+    NEWLINE Newline
+    EOF Non-Source
+*/
