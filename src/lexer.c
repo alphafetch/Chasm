@@ -52,6 +52,7 @@ static char lookahead(Lexer* lexer, size_t distance) {
 
 // Advances the lexer's index by one; \r is considered an ordinary column and only \n ends a line
 // nextToken skips \r as whitespace
+// Takes O(1) time
 static void advance(Lexer* lexer) {
     // Consumes the character at c; with a newline starting a new row, 
     // and anything else advances the index; nothing happens at the terminator
@@ -79,6 +80,7 @@ Lexer createLexer(const char* src, const char* filename) {
 
 // Validator - Check the scanned number to verify its validity
 // This returns void, only directly editing the token given
+// This takes O(n) time because it takes n time per character in t->length
 static void validateNumberLiteral(Token* t, const char* start, short numberType) {
     size_t i = 0;
     const char* validatorPtr = start;
@@ -135,6 +137,7 @@ static void validateNumberLiteral(Token* t, const char* start, short numberType)
 }
 
 // Validator - Check the scanned character to verify its validity
+// Takes O(n) time because it works through t->length characters
 static void validateCharLiteral(Token* t, const char* start) {
     /**
      * H = hex character
