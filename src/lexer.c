@@ -134,6 +134,87 @@ static void validateNumberLiteral(Token* t, const char* start, short numberType)
     if (i != t->length) t->kind = INVALID;
 }
 
+// Validator - Check the scanned character to verify its validity
+static void validateCharLiteral(Token* t, const char* start) {
+    /**
+     * H = hex character
+     * 
+     * Escape Sequence -> Format -> Notes
+     * \n                 \n        Newline character
+     * \t                 \t        Tab character
+     * \r                 \r        Return character
+     * \0                 \0        Null-terminator
+     * \\                 \\        Backslash
+     * \'                 \'        Single quote
+     * \"                 \"        Double quote
+     * \x                 \xHH      ASCII character
+     * \u                 \u{H...}  Unicode character
+     * 
+     * On entry, lexer->c should be on the opening quote `'` 
+     *      and on exit the character after the closing quote
+     */
+    
+    size_t i = 0;
+    const char* validatorPtr = start; // first '
+    t->kind = CHAR_LITERAL; // start as a char literal, set to invalid if malformed
+
+    // Enter the character literal (check likely won't fail, checked at call site)
+    if (validatorPtr[i] == '\'') i++;
+    else t->kind = INVALID;
+
+    // Check for an escape sequence
+    if (validatorPtr[i] == '\\') {
+        i++;
+        if (validatorPtr[i] == '\n' || validatorPtr[i] == '\r' || validatorPtr[i] == '\0') t->kind = INVALID;
+        switch (validatorPtr[i]) {
+            case 'n' :
+            case 't' :
+            case 'r' :
+            case '0' :
+            case '\\':
+            case '\'':
+            case '"' :
+                i++;
+                if (validatorPtr[i] == '\'') i++;
+                else t->kind = INVALID;
+                break;
+            case 'x' :
+                if (HEX_VALID(validatorPtr[i + 1]) && HEX_VALID(validatorPtr[i + 2])) {
+                    i += 3;
+                    if (validatorPtr[i] == '\'') i++;
+                    else t->kind = INVALID;
+                } else {
+                    t->kind = INVALID;
+                    i++;
+                }
+                break;
+            case 'u' :
+                if (validatorPtr[i + 1] == '{' && HEX_VALID(validatorPtr[i + 2])) {
+                    i += 2;
+                    while (HEX_VALID(validatorPtr[i])) i++;
+                }
+                if (validatorPtr[i] == '}') i++;
+                else t->kind = INVALID;
+                if (validatorPtr[i] == '\'') i++;
+                else t->kind = INVALID;
+                break;
+            default:
+                t->kind = INVALID;
+                if (validatorPtr[i] != '\0') i++;
+                if (validatorPtr[i] == '\'') i++;
+                else t->kind = INVALID;
+                break;
+        }
+    } else {
+        if (validatorPtr[i] != '\0') i++;
+        if (validatorPtr[i] == '\n' || validatorPtr[i] == '\r' || validatorPtr[i] == '\0') t->kind = INVALID;
+        if (validatorPtr[i] == '\'') i++;
+        else t->kind = INVALID;
+    }
+
+    if (t->length != i) t->kind = INVALID;
+}
+
 // Get and return the next token currently in the lexer's source
 // This function should be O(n) time per file due to consuming each character once
 Token nextToken(Lexer* lexer) {
@@ -404,6 +485,22 @@ Token nextToken(Lexer* lexer) {
                 t.typeValue.pc = PC_GT;
             }
             break;
+    }
+
+    // Check for a character literal
+    if (t.kind == INVALID && *(lexer->c) == '\'') {
+        // Scanner - take in the full literal
+        advance(lexer);
+        while (*(lexer->c) != '\'' && *(lexer->c) != '\n' && *(lexer->c) != '\r' && *(lexer->c) != '\0') {
+            if (*(lexer->c) == '\\') advance(lexer);
+            if (*(lexer->c) != '\n' && *(lexer->c) != '\r' && *(lexer->c) != '\0') advance(lexer);
+        }
+        // Consume the final '
+        if (*(lexer->c) == '\'') advance(lexer);
+
+        t.length = lexer->c - start;
+
+        validateCharLiteral(&t, start);
     }
 
     // Invalid means no type has yet to be found for the token
