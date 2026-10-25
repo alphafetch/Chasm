@@ -16,5 +16,55 @@ f('a','b');
 
 /*
     Expected output:
-    
+    'a' Character
+    ' ' Character
+    '"' Character
+    '\n' Character
+    '\0' Character
+    '\\' Character
+    '\'' Character
+    '\x41' Character
+    '\u{41}' Character
+    '\u{1F600}' Character
+    NEWLINE Newline
+    '' Invalid
+    NEWLINE Newline
+    'ab' Invalid
+    NEWLINE Newline
+    '\q' Invalid
+    NEWLINE Newline
+    '\x4' Invalid
+    NEWLINE Newline
+    '\x4G' Invalid
+    NEWLINE Newline
+    '\u41' Invalid
+    NEWLINE Newline
+    '\u{}' Invalid
+    NEWLINE Newline
+    '\u{41' Invalid
+    NEWLINE Newline
+    '\' Invalid
+    NEWLINE Newline
+    'a Invalid
+    NEWLINE Newline
+    x Identifier
+    = Punctuation
+    'a' Character
+    ; Punctuation
+    NEWLINE Newline
+    f Identifier
+    ( Punctuation
+    'a' Character
+    , Punctuation
+    'b' Character
+    ) Punctuation
+    ; Punctuation
+    NEWLINE Newline
+    'a' Character
+    'b' Character
+    NEWLINE Newline
+    ' Invalid
+    NEWLINE Newline
+    NEWLINE Newline
+    EOF Non-Source
 */
